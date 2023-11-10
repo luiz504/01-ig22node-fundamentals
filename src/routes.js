@@ -40,4 +40,21 @@ export const routes = [
       return res.writeHead(204).end()
     },
   },
+  {
+    method: 'PUT',
+    path: buildRoutePath('/users/:id'),
+    handler: (req, res) => {
+      console.log('ddd', req.params)
+      const id = req.params?.id
+
+      if (!id) {
+        return res.writeHead(400).end('UserId is required.')
+      }
+
+      const { name, email } = req.body
+
+      database.update('users', id, { name, email })
+      return res.writeHead(204).end()
+    },
+  },
 ]
